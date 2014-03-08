@@ -2,7 +2,6 @@
 	define("HOME", "/store");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
