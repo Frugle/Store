@@ -41,9 +41,11 @@ if (isset($post["register"]))
 
 		$prepare = $db->prepare($query);
 
-		$hash = password_hash($post["password"], PASSWORD_BCRYPT);
+		
 		//$hash = "000000000000000000000000000000000000000000000000000000000000";
 		$salt = file_get_contents("/dev/urandom", false, null, 0, 60);
+
+		$hash = password_hash($post["password"] . $salt, PASSWORD_BCRYPT);
 
 		$permissionlevel = 0;
 
