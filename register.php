@@ -43,12 +43,13 @@ if (isset($post["register"]))
 
 		$hash = password_hash($post["password"], PASSWORD_BCRYPT);
 		//$hash = "000000000000000000000000000000000000000000000000000000000000";
+		$salt = file_get_contents("/dev/urandom", false, null, 0, 60)
 
 		$permissionlevel = 0;
 
 		$prepare->bindParam(":usernameid", 		$post["username"]);
 		$prepare->bindParam(":password", 		$hash);
-		$prepare->bindParam(":salt", 			$hash);
+		$prepare->bindParam(":salt", 			$salt);
 		$prepare->bindParam(":firstname", 		$post["firstname"]);
 		$prepare->bindParam(":lastname", 		$post["lastname"]);
 		$prepare->bindParam(":permissionlevel", $permissionlevel, PDO::PARAM_INT);
