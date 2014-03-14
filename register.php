@@ -40,7 +40,8 @@ if (isset($post["register"]))
 
 		$prepare = $db->prepare($query);
 
-		$hash = password_hash($post["password"], PASSWORD_BCRYPT);
+		//$hash = password_hash($post["password"], PASSWORD_BCRYPT);
+		$hash = "000000000000000000000000000000000000000000000000000000000000";
 
 		$permissionlevel = 0;
 
