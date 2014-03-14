@@ -2,7 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `store` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+CREATE SCHEMA IF NOT EXISTS `store` DEFAULT CHARACTER SET utf8 ;
 USE `store` ;
 
 -- -----------------------------------------------------
@@ -11,9 +11,9 @@ USE `store` ;
 DROP TABLE IF EXISTS `store`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `store`.`user` (
-  `userid` INT NOT NULL AUTO_INCREMENT,
-  `password` VARCHAR(512) NOT NULL,
-  `salt` VARCHAR(512) NOT NULL,
+  `usernameid` VARCHAR(32) NOT NULL,
+  `password` BINARY(60) NOT NULL,
+  `salt` BINARY(60) NOT NULL,
   `firstname` VARCHAR(32) NOT NULL,
   `lastname` VARCHAR(32) NOT NULL,
   `permissionlevel` INT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `store`.`user` (
   `postoffice` VARCHAR(32) NOT NULL,
   `phone` VARCHAR(16) NOT NULL,
   `email` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`userid`))
+  PRIMARY KEY (`usernameid`))
 ENGINE = InnoDB;
 
 
@@ -33,7 +33,14 @@ DROP TABLE IF EXISTS `store`.`category` ;
 
 CREATE TABLE IF NOT EXISTS `store`.`category` (
   `categoryid` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`categoryid`))
+  `parentcategory` VARCHAR(32) NULL,
+  PRIMARY KEY (`categoryid`),
+  INDEX `fk_category_category1_idx` (`parentcategory` ASC),
+  CONSTRAINT `fk_category_category1`
+    FOREIGN KEY (`parentcategory`)
+    REFERENCES `store`.`category` (`categoryid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -59,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `store`.`product` (
   `model` VARCHAR(64) NOT NULL,
   `description` VARCHAR(512) NOT NULL,
   `warranty` INT NOT NULL,
-  `baseprice` FLOAT NOT NULL,
-  `discount` FLOAT NOT NULL,
+  `baseprice` DECIMAL(9,2) NOT NULL,
+  `discount` DECIMAL(3,2) NOT NULL,
   `image` VARCHAR(128) NOT NULL,
   PRIMARY KEY (`productid`),
   INDEX `fk_product_brand1_idx` (`brandid` ASC),
@@ -103,13 +110,14 @@ DROP TABLE IF EXISTS `store`.`order` ;
 
 CREATE TABLE IF NOT EXISTS `store`.`order` (
   `orderid` INT NOT NULL AUTO_INCREMENT,
-  `userid` INT NOT NULL,
+  `usernameid` VARCHAR(32) NOT NULL,
   `date` TIMESTAMP NOT NULL,
-  INDEX `fk_order_user1_idx` (`userid` ASC),
-  PRIMARY KEY (`orderid`),
+  `message` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`orderid`, `usernameid`),
+  INDEX `fk_order_user1_idx` (`usernameid` ASC),
   CONSTRAINT `fk_order_user1`
-    FOREIGN KEY (`userid`)
-    REFERENCES `store`.`user` (`userid`)
+    FOREIGN KEY (`usernameid`)
+    REFERENCES `store`.`user` (`usernameid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -123,7 +131,7 @@ DROP TABLE IF EXISTS `store`.`orderproduct` ;
 CREATE TABLE IF NOT EXISTS `store`.`orderproduct` (
   `orderid` INT NOT NULL,
   `productid` INT NOT NULL,
-  `price` FLOAT NOT NULL,
+  `price` DECIMAL(9,2) NOT NULL,
   `count` INT NOT NULL,
   INDEX `fk_orderproduct_order1_idx` (`orderid` ASC),
   INDEX `fk_orderproduct_product1_idx` (`productid` ASC),
