@@ -4,6 +4,7 @@ $post = $_POST;
 
 if (isset($post["register"]))
 {
+	require("lib/password_compat/password.php");
 	require_once("include/db.php");
 
 	try
@@ -40,8 +41,8 @@ if (isset($post["register"]))
 
 		$prepare = $db->prepare($query);
 
-		//$hash = password_hash($post["password"], PASSWORD_BCRYPT);
-		$hash = "000000000000000000000000000000000000000000000000000000000000";
+		$hash = password_hash($post["password"], PASSWORD_BCRYPT);
+		//$hash = "000000000000000000000000000000000000000000000000000000000000";
 
 		$permissionlevel = 0;
 
