@@ -41,11 +41,12 @@ if (isset($post["register"]))
 
 		$prepare = $db->prepare($query);
 
-		
-		//$hash = "000000000000000000000000000000000000000000000000000000000000";
-		$salt = file_get_contents("/dev/urandom", false, null, 0, 60);
+		if (strtoupper(substr(PHP_OS, 0, 3)) === "WIN") // FOR DEBUG PURPOSES ONLY
+			$salt = "000000000000000000000000000000000000000000000000000000000000";
+		else
+			$salt = file_get_contents("/dev/urandom", false, null, 0, 60);
 
-		$hash = password_hash($post["password"] . $salt, PASSWORD_BCRYPT);
+		$hash = password_hash($post["password"] . $salt, PASSWORD_BCRYPT, ["cost" => 13]);
 
 		$permissionlevel = 0;
 
