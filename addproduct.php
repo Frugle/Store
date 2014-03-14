@@ -83,7 +83,7 @@ function getBrands()
 /* MOVE TO EXTERNAL FILE? */
 function validate($brandid, $model, $description, $warranty, $baseprice, $discount, $image)
 {
-	return preg_match('/^\w{2,32}$/', $brandid) &&
+	return preg_match('/^[\w\d]{2}[\w\d\s]{0,30}$/', $brandid) &&
 		preg_match('/^[\w\d\s]{0,64}$/', $model) &&	
 		preg_match('/^.{0,512}$/', $description) &&
 		preg_match('/^\d{0,4}$/', $warranty) &&

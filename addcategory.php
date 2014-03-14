@@ -83,7 +83,7 @@ function getCategories()
 /* MOVE TO EXTERNAL FILE? */
 function validate($categoryid, $parentcategory)
 {
-	$pattern = '/^\w{2,32}$/';
+	$pattern = '/^[\w\d]{2}[\w\d\s]{0,30}$/';
 	return preg_match($pattern, $categoryid) &&
 		preg_match($pattern, $parentcategory);
 }
