@@ -26,7 +26,7 @@ function createCategoryTree(&$all, &$arr, $parent, $path)
 		{
 			$newpath = $path . $key . '/';
 			printf('<li>%s<br>', sprintf('<a href="category/%s">%s</a>',
-				$newpath, substr($newpath, strrpos($newpath, '/', -2))));
+				$newpath, str_replace('/', '', substr($newpath, strrpos($newpath, '/', -2)))));
 			$arr[$key] = createCategoryTree($all, $arr[$key], $key, $newpath);
 		}
 	}
