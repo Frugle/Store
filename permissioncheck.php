@@ -1,15 +1,14 @@
 
-<!--
+<?php
 
+/* 
 	Webstore Project
 		- Permission Check
 
-	Version: 0.1
+	Version: 1.0
 	Author: Mika
-	Completed in: 0.5hrs
-
--->
-<?php
+	Completed in: 1.0hrs
+*/
 
 /* PERMISSION LEVELS */
 define('PERM_USER', 0);
@@ -22,7 +21,7 @@ define('MSG_ERR_NOPERM', 'Access denied.');
 function hasPermission($permissionlevel)
 {
 	if(isLoggedIn())
-		return $db_getPermissionLevel($_SESSION['username']) >= $permissionlevel;
+		return db_getPermissionLevel($_SESSION['username']) >= $permissionlevel;
 	return false;
 }
 
@@ -51,10 +50,10 @@ function db_getPermissionLevel($usernameid)
 	$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$st = $db->query('SELECT permissionlevel FROM user WHERE usernameid = :usernameid');
+	$st = $db->prepare('SELECT permissionlevel FROM user WHERE usernameid = :usernameid');
 	$st->bindParam(":usernameid", $usernameid);
+	$st->execute();
 	$st->setFetchMode(PDO::FETCH_ASSOC);
-
 	$result = $st->fetch();
 
 	if($result)

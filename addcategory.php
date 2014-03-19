@@ -2,18 +2,16 @@
 	include "include/header.php"
 ?>
 
-<!--
+<?php
 
+/* 
 	Webstore Project
 		- Add category
 
 	Version: 1.0
 	Author: Mika
 	Completed in: 3hrs
-
--->
-
-<?php
+*/
 
 if(isset($_POST['submit']) === false)
 {

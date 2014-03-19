@@ -2,18 +2,16 @@
 	include "include/header.php"
 ?>
 
-<!--
+<?php
 
+/* 
 	Webstore Project
 		- Add brand
 
 	Version: 1.0
 	Author: Mika
-	Completed in: 15mis
-
--->
-
-<?php
+	Completed in: 15min
+*/
 
 if(isset($_POST['submit']) === false)
 {
