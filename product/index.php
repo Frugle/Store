@@ -59,6 +59,7 @@
 		echo "Warranty: " . $product["warranty"] . "<br>";
 		echo "Base price: " . $product["baseprice"] . "<br>";
 		echo "Discount: " . $product["discount"] . "<br>";
-		echo "Image: " . $product["image"] . "<br>";
+		echo "Image<br>";
+		echo "<img src='{$product["image"]}'>";
 	}
 ?>
