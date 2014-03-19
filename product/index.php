@@ -1,4 +1,7 @@
 <?php
+	include "../include/header.php"
+?>
+<?php
 	function getProduct($productId)
 	{
 		if (!isset($productId))
@@ -62,4 +65,7 @@
 		echo "Image<br>";
 		echo "<img src='{$product["image"]}'>";
 	}
+?>
+<?php
+	include "../include/footer.php"
 ?>
