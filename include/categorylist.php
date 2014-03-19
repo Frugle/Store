@@ -1,5 +1,5 @@
 <?php
-	include "include/header.php"
+	include "header.php"
 ?>
 
 <?php
@@ -44,7 +44,7 @@ function createCategoryTree(&$all, &$arr, $parent, $path)
 /* MOVE TO EXTERNAL FILE? */
 function db_getAllCategories()
 {
-	require_once("include/db.php");
+	require_once("db.php");
 
 	$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -65,5 +65,5 @@ function db_getAllCategories()
 ?>
 
 <?php
-	include "include/footer.php"
+	include "footer.php"
 ?>
