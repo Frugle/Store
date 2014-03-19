@@ -1,4 +1,4 @@
 <?php
-	if (isset($_POST["id"]))
-		echo $_POST["id"];
+	if (isset($_GET["id"]))
+		echo $_GET["id"];
 ?>
