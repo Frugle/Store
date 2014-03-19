@@ -1,4 +1,8 @@
 <?php
+	include "include/header.php"
+?>
+
+<?php
 
 $post = $_POST;
 
@@ -109,3 +113,7 @@ if (isset($post["register"]))
 	<br>
 	<input type="submit" name="register" value="Register">
 </form>
+
+<?php
+	include "include/footer.php"
+?>

@@ -1,3 +1,6 @@
+<?php
+	include "include/header.php"
+?>
 
 <!--
 
@@ -130,4 +133,8 @@ function db_addCategory($categoryid, $parentcategory)
 	$st->execute();
 }
 
+?>
+
+<?php
+	include "include/footer.php"
 ?>

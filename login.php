@@ -1,6 +1,8 @@
 <?php
-	session_start();
+	include "include/header.php"
+?>
 
+<?php
 if (isset($_GET["logout"]))
 {
 	$_SESSION = array();
@@ -94,3 +96,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == 1)
 	<br>
 	<input type="submit" name="login" value="Login">
 </form>
+
+<?php
+	include "include/footer.php"
+?>

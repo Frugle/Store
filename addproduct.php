@@ -1,3 +1,6 @@
+<?php
+	include "include/header.php"
+?>
 
 <!--
 
@@ -149,4 +152,8 @@ function db_addProduct($brandid, $model, $description, $warranty, $baseprice, $d
 	$st->execute();
 }
 
+?>
+
+<?php
+	include "include/footer.php"
 ?>

@@ -1,3 +1,6 @@
+<?php
+	include "include/header.php"
+?>
 
 <!--
 
@@ -80,4 +83,8 @@ function db_addBrand($brandid)
 	$st->execute();
 }
 
+?>
+
+<?php
+	include "include/footer.php"
 ?>
