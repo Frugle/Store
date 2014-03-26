@@ -14,6 +14,11 @@ session_start();
 
 function addItem($itemId)
 {
+	if(isset($_SESSION['cart']) === false)
+	{
+		$_SESSION['cart'] = array();
+	}
+
 	$index = intval($itemId);
 
 	if(isset($_SESSION['cart'][$index]))
@@ -24,11 +29,6 @@ function addItem($itemId)
 	{
 		$_SESSION['cart'][$index] = 1;
 	}
-}
-
-if(isset($_SESSION['cart']) === false)
-{
-	$_SESSION['cart'] = array();
 }
 
 if(isset($_POST['item']) === true && validate($_POST['item']))
