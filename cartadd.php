@@ -10,7 +10,8 @@
 	Completed in: 60min
 */
 
-session_start();
+if (session_status() == PHP_SESSION_NONE)
+	session_start();
 
 function addItem($itemId)
 {
