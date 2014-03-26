@@ -82,10 +82,7 @@ if ($logoutPosted && $loggedIn)
 
 if ($loginPosted && !$loggedIn)
 {
-	
-
 	$loggedIn = tryLogin() === true;
-	echo "Logged in: " . $loggedIn;
 }
 
 if ($loggedIn)
