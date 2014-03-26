@@ -1,5 +1,5 @@
 <?php
-	include "../include/header.php"
+	include_once "../include/header.php"
 ?>
 <?php
 	function getProduct($productId)
@@ -55,13 +55,15 @@
 		exit("Product not found (DB)");
 	else
 	{
-		if (isset($_GET["add"]))
+		if (isset($_GET["add"]) && isLoggedIn())
 		{
 			require_once("../cartadd.php");
 			addItem(intval($product["productid"]));
 		}
 
-		echo "<a href=?add>Add to cart</a><br>";
+		if (isLoggedIn())
+			echo "<a href=?add>Add to cart</a><br>";
+
 		echo "Productid: " . $product["productid"] . "<br>";
 		echo "Brand: " . $product["brandid"] . "<br>";
 		echo "Model: " . $product["model"] . "<br>";

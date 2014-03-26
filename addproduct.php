@@ -1,5 +1,5 @@
 <?php
-	include "include/header.php"
+	include_once "include/header.php"
 ?>
 
 <?php
