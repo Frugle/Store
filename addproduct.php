@@ -43,8 +43,8 @@ else
 			exit($ex->getMessage() . getReturnLink());
 		}
 
-		// On success, return to the main view
-		//header("location: " . getReturnAddress());
+		On success, return to the main view
+		header("location: " . getReturnAddress());
 	}
 	else
 	{
@@ -150,12 +150,6 @@ function db_addProduct($brandid, $model, $description, $warranty, $baseprice, $d
 	$st->execute();
 
 	$lastId = $db->lastInsertId();
-
-	//echo "User: " . phpinfo();
-	echo "Upload: " . $image["name"] . "<br>";
-  	echo "Type: " . $image["type"] . "<br>";
-  	echo "Size: " . ($image["size"] / 1024) . " kB<br>";
-  	echo "Stored in: " . $image["tmp_name"];
 
   	$ext = pathinfo($image["name"], PATHINFO_EXTENSION);
 
