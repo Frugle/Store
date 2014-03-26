@@ -55,6 +55,13 @@
 		exit("Product not found (DB)");
 	else
 	{
+		if (isset($_GET["add"]))
+		{
+			require_once("../cartadd.php");
+			addItem(intval($product["productid"]));
+		}
+
+		echo "<a href=?add>Add to cart</a><br>";
 		echo "Productid: " . $product["productid"] . "<br>";
 		echo "Brand: " . $product["brandid"] . "<br>";
 		echo "Model: " . $product["model"] . "<br>";

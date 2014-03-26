@@ -12,14 +12,9 @@
 
 session_start();
 
-if(isset($_SESSION['cart']) === false)
+function addItem($itemId)
 {
-	$_SESSION['cart'] = array();
-}
-
-if(isset($_POST['item']) === true && validate($_POST['item']))
-{
-	$index = intval($_POST['item']);
+	$index = intval($itemId);
 
 	if(isset($_SESSION['cart'][$index]))
 	{
@@ -29,6 +24,18 @@ if(isset($_POST['item']) === true && validate($_POST['item']))
 	{
 		$_SESSION['cart'][$index] = 1;
 	}
+}
+
+if(isset($_SESSION['cart']) === false)
+{
+	$_SESSION['cart'] = array();
+}
+
+if(isset($_POST['item']) === true && validate($_POST['item']))
+{
+	$index = intval($_POST['item']);
+
+	addItem($index);
 
 	echo 'Item added to the cart!';
 }

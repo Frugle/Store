@@ -66,7 +66,7 @@ function printProductInfo($productInfo)
 		$bp = $info['baseprice'];
 		$dc = $info['discount'];
 	
-		printf('<table><tr><td><img src="%s" height="100"/>', $info['image']);
+		printf('<table><tr><td><img src="%s" height="100"/>', "/store/{$info['image']}");
 		printf('<td><p>[%d] <b>%s</b> - %s</p>', $info['count'], $info['model'],
 			$info['discount'] > 0
 			? sprintf('%s EUR (-%s%%)', $c * $bp * (1.0 - $dc), $dc * 100.0)
