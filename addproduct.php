@@ -43,7 +43,7 @@ else
 			exit($ex->getMessage() . getReturnLink());
 		}
 
-		On success, return to the main view
+		// On success, return to the main view
 		header("location: " . getReturnAddress());
 	}
 	else
