@@ -3,14 +3,22 @@
 ?>
 
 <?php
-if (isset($_GET["logout"]))
+
+$post = $_POST;
+
+$logoutPosted = isset($_GET["logout"]);
+$loginPosted = isset($_POST["login"]);
+$loggedIn = isLoggedIn();
+
+if ($logoutPosted && $loggedIn)
 {
 	$_SESSION = array();
 	session_destroy();
-	echo("Logged out!");
+	echo "<h2>Logged out!</h2>";
+	$loggedIn = isLoggedIn();
 }
 
-if (isset($_POST["login"]))
+if ($loginPosted && !$loggedIn)
 {
 	function tryLogin()
 	{
@@ -18,8 +26,6 @@ if (isset($_POST["login"]))
 		{
 			require("lib/password_compat/password.php");
 			require_once("include/db.php");
-
-			$post = $_POST;
 
 			$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
 			$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -42,14 +48,12 @@ if (isset($_POST["login"]))
 
 			if (!isset($row["usernameid"]))
 			{
-				echo("invalid username or password 1");
-				return;
+				return false;
 			}
 
 			if ($row["usernameid"] !== $post["username"])
 			{
-				echo("invalid username or password 2");
-				return;
+				return false;
 			}
 
 			$toVerify = $post["password"] . $row["salt"];
@@ -58,44 +62,59 @@ if (isset($_POST["login"]))
 
 			if (!$passCorrect)
 			{
-				echo("invalid username or password 3");
-				return;
+				return false;
 			}
 
 			$_SESSION['username'] = $row["usernameid"];
 			$_SESSION['loggedin'] = 1;
 
-			echo("LOGGED IN! :D");
+			$db = null;
+			return true;
 		} 
 		catch (Exception $e) 
 		{
-			exit($e->getMessage());
+			return false;
 		}
 
 		$db = null;
+		return false;
 	}
 
-	tryLogin();
+	$loggedIn = tryLogin() == true;
+	echo "Logged in: " . $loggedIn;
 }
 
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == 1)
+if ($loggedIn)
 {
 	echo "<br>Logged in as " . $_SESSION["username"] . "<br>";
 	echo "<a href='login.php?logout'>Logout</a>";
 }
-
+else
+{
 ?>
 
 <h1>Login</h1>
+
+<?php
+	if ($loginPosted)
+	{
+		echo "<h2>Invalid username or password</h2>";
+	}
+?>
+
 <form method="post" action="login.php">
 	<label for="username">Username</label>
-	<input type="text" name="username">
+	<input type="text" name="username" value="<?php echo isset($post["username"]) ? $post["username"] : ""; ?>">
 	<br>
 	<label for="password">Password</label>
-	<input type="text" name="password">
+	<input type="password" name="password">
 	<br>
 	<input type="submit" name="login" value="Login">
 </form>
+
+<?php
+}
+?>
 
 <?php
 	include "include/footer.php"
