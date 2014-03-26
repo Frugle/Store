@@ -8,35 +8,35 @@
 	Webstore Project
 		- Add product
 
-	Version: 1.0
-	Author: Mika
-	Completed in: 1.5hrs
+	Version: 1.1
+	Author: Mika and Iiro
+	Completed in: 1.5+ hrs
 */
 
 if(isset($_POST['submit']) === false)
 {
 	// Print Form
-	echo '<form method="post">';
+	echo '<form method="post" enctype="multipart/form-data">';
 	echo 'Brand: <select name="brandid">' . getBrands() . '</select><br>';
 	echo 'Model: <input type="text" name="model"/><br>';
 	echo 'Description: <textarea type="text" name="description"></textarea><br>';
 	echo 'Warranty: <input type="text" name="warranty"/><br>';
 	echo 'Baseprice: <input type="text" name="baseprice"/><br>';
 	echo 'Discount: <input type="text" name="discount"/><br>';
-	echo 'Image URL: <input type="text" name="image"/><br>';
+	echo 'Image URL: <input type="file" name="image"/><br>';
 	echo '<input type=submit name="submit"/>';
 	echo '</form>';
 }
 else
 {
 	if(validate($_POST["brandid"], $_POST["model"], $_POST["description"], $_POST["warranty"],
-		$_POST["baseprice"], $_POST["discount"], $_POST["image"]) === true)
+		$_POST["baseprice"], $_POST["discount"], $_FILES["image"]) === true)
 	{
 		// SQL Query
 		try
 		{
 			db_addProduct($_POST["brandid"], $_POST["model"], $_POST["description"], $_POST["warranty"],
-				$_POST["baseprice"], $_POST["discount"], $_POST["image"]);
+				$_POST["baseprice"], $_POST["discount"], $_FILES["image"]);
 		}
 		catch (Exception $ex)
 		{
@@ -44,7 +44,7 @@ else
 		}
 
 		// On success, return to the main view
-		header("location: " . getReturnAddress());
+		//header("location: " . getReturnAddress());
 	}
 	else
 	{
@@ -91,7 +91,7 @@ function validate($brandid, $model, $description, $warranty, $baseprice, $discou
 		preg_match('/^\d{0,4}$/', $warranty) &&
 		preg_match('/^\d{1,7}($|(\.\d{1,2}))$/', $baseprice) &&
 		preg_match('/^\d($|(\.\d{1,2}))$/', $discount) &&
-		preg_match('/^\S{0,128}$/', $image);
+		$image["error"] == 0;
 }
 
 /* MOVE TO EXTERNAL FILE? */
@@ -138,7 +138,7 @@ function db_addProduct($brandid, $model, $description, $warranty, $baseprice, $d
 		:warranty,
 		:baseprice,
 		:discount,
-		:image)
+		\"\")
 	");
 
 	$st->bindParam(":brandid", $brandid);
@@ -147,8 +147,40 @@ function db_addProduct($brandid, $model, $description, $warranty, $baseprice, $d
 	$st->bindParam(":warranty", $warranty);
 	$st->bindParam(":baseprice", $baseprice);
 	$st->bindParam(":discount", $discount);
-	$st->bindParam(":image", $image);
 	$st->execute();
+
+	$lastId = $db->lastInsertId();
+
+	//echo "User: " . phpinfo();
+	echo "Upload: " . $image["name"] . "<br>";
+  	echo "Type: " . $image["type"] . "<br>";
+  	echo "Size: " . ($image["size"] / 1024) . " kB<br>";
+  	echo "Stored in: " . $image["tmp_name"];
+
+  	$ext = pathinfo($image["name"], PATHINFO_EXTENSION);
+
+  	// TODO: validate extension
+
+  	$imageDirDB = "productimages";
+  	$imageDirMove = "{$_SERVER['DOCUMENT_ROOT']}/store/$imageDirDB";
+
+  	if (!file_exists($imageDirMove))
+  		mkdir($imageDirMove, 0777, true);
+
+  	$name = $lastId . "." . $ext;
+  	$imagePathDB = "$imageDirDB/$name";
+  	$imagePathMove = "$imageDirMove/$name";
+
+  	move_uploaded_file($image["tmp_name"], $imagePathMove );
+
+  	$st = $db->prepare("
+		UPDATE product
+		SET image = :image
+		WHERE productid = :lastid");
+
+  	$st->bindParam(":lastid", $lastId);
+  	$st->bindParam(":image", $imagePathDB);
+  	$st->execute();
 }
 
 ?>
