@@ -62,7 +62,7 @@
 		}
 
 		if (isLoggedIn())
-			echo "<a href={$product["productid"]}/add>Add to cart</a><br>";
+			echo "<a href=/store/product/{$product["productid"]}/add>Add to cart</a><br>";
 
 		echo "Productid: " . $product["productid"] . "<br>";
 		echo "Brand: " . $product["brandid"] . "<br>";
