@@ -57,7 +57,7 @@
 	{
 		if (isset($_GET["add"]) && isLoggedIn())
 		{
-			echo "CART ADD" . intval($product["productid"]);
+			//echo "CART ADD" . intval($product["productid"]);
 			require_once("../cartadd.php");
 			addItem(intval($product["productid"]));
 		}
