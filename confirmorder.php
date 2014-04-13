@@ -14,8 +14,7 @@
 
 	try
 	{
-		$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db = getDatabaseConnection();
 
 		if ($confirm)
 		{
@@ -57,8 +56,7 @@
 			";
 			$prepare = $db->prepare($query);
 
-			$db2 = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-			$db2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$db2 = getDatabaseConnection();
 
 			$productIds = $_SESSION['cart'];
 			foreach ($productIds as $productid => $count) 
@@ -67,18 +65,10 @@
 				$prepare->bindParam(":productid", $productid);
 				$prepare->bindParam(":count", $count);
 
-				$query2 = "
-				SELECT baseprice, discount
-				FROM product 
-				WHERE productid = " . $productid;
-				//echo "Query2: " . $query2;
-				$prepare2 = $db2->prepare($query2);
-				$prepare2->execute();
-				$prepare2->setFetchMode(PDO::FETCH_ASSOC);
-				$row2 = $prepare2->fetch();
+				$product = getProduct($productid);
 
-				$baseprice = $row2["baseprice"];
-				$discount = $row2["discount"];
+				$baseprice = $product["baseprice"];
+				$discount = $product["discount"];
 				$price = $baseprice * (1.0 - $discount);
 
 				$prepare->bindParam(":price", $price);
@@ -92,18 +82,7 @@
 		}
 		else
 		{
-			$query = "
-			SELECT *
-			FROM user
-			WHERE usernameid = :username
-			";
-
-			$prepare = $db->prepare($query);
-			$prepare->bindParam(":username", $_SESSION['username']);
-			$prepare->execute();
-
-			$prepare->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $prepare->fetch();
+			$user = getUser($_SESSION['username']);
 		}
 	}
 	catch (Exception $e) 
@@ -117,25 +96,25 @@
 
 		echo "<table>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">First name</td><td>{$row["firstname"]}</td>";
+		echo "<td style=\"font-weight: bold\">First name</td><td>{$user["firstname"]}</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">Last name</td><td>{$row["lastname"]}</td>";
+		echo "<td style=\"font-weight: bold\">Last name</td><td>{$user["lastname"]}</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">Address</td><td>{$row["address"]}</td>";
+		echo "<td style=\"font-weight: bold\">Address</td><td>{$user["address"]}</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">Post code</td><td>{$row["postcode"]}</td>";
+		echo "<td style=\"font-weight: bold\">Post code</td><td>{$user["postcode"]}</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">Post office</td><td>{$row["postoffice"]}</td>";
+		echo "<td style=\"font-weight: bold\">Post office</td><td>{$user["postoffice"]}</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">Phone</td><td>{$row["phone"]}</td>";
+		echo "<td style=\"font-weight: bold\">Phone</td><td>{$user["phone"]}</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td style=\"font-weight: bold\">E-mail</td><td>{$row["email"]}</td>";
+		echo "<td style=\"font-weight: bold\">E-mail</td><td>{$user["email"]}</td>";
 		echo "</tr>";
 		echo "</table>";
 

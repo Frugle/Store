@@ -25,11 +25,6 @@ function hasPermission($permissionlevel)
 	return false;
 }
 
-function isLoggedIn()
-{
-	return isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === 1;
-}
-
 ?>
 
 <!-- THE REST ARE PLACEHOLDERS UNTIL THEY'RE MOVED -->
@@ -47,17 +42,10 @@ function db_getPermissionLevel($usernameid)
 {
 	require_once("include/db.php");
 
-	$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	$st = $db->prepare('SELECT permissionlevel FROM user WHERE usernameid = :usernameid');
-	$st->bindParam(":usernameid", $usernameid);
-	$st->execute();
-	$st->setFetchMode(PDO::FETCH_ASSOC);
-	$result = $st->fetch();
-
-	if($result)
-		return $result['permissionlevel'];
+	$user = getUser($usernameid);
+	
+	if($user)
+		return $user['permissionlevel'];
 	return PERM_USER;
 }
 

@@ -17,7 +17,7 @@ if(isset($_POST['submit']) === false)
 {
 	// Print Form
 	echo '<form method="post" enctype="multipart/form-data">';
-	echo 'Brand: <select name="brandid">' . getBrands() . '</select><br>';
+	echo 'Brand: <select name="brandid">' . getBrandsHtml() . '</select><br>';
 	echo 'Model: <input type="text" name="model"/><br>';
 	echo 'Description: <textarea type="text" name="description"></textarea><br>';
 	echo 'Warranty: <input type="text" name="warranty"/><br>';
@@ -63,7 +63,7 @@ function getReturnLink()
 	return '<br><a href="' . getReturnAddress() . '">Return</a><br>';
 }
 
-function getBrands()
+function getBrandsHtml()
 {
 	try
 	{
@@ -99,14 +99,9 @@ function db_getAllBrands()
 {
 	require_once("include/db.php");
 
-	$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	$st = $db->query('SELECT brandid FROM brand');
-	$st->setFetchMode(PDO::FETCH_ASSOC);
-
 	$brands = array();
-	while($row = $st->fetch())
+	$brandsGeneric = getBrands();
+	foreach ($brandsGeneric as $row) 
 	{
 		$brands[] = $row['brandid'];
 	}

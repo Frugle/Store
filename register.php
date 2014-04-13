@@ -16,20 +16,8 @@ if ($posted)
 
 	try
 	{
-		$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-		$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
-		$query = "
-		SELECT usernameid
-		FROM user
-		WHERE usernameid = :username
-		";
-		$prepare = $db->prepare($query);
-		$prepare->bindParam(":username", $post["username"]);
-		$prepare->execute();
-		$prepare->setFetchMode(PDO::FETCH_ASSOC);
-		$row = $prepare->fetch();
-		$userExists = isset($row["usernameid"]) && !empty($row["usernameid"]);
+		$user = getUser($post["username"]);
+		$userExists = isset($user["usernameid"]) && !empty($user["usernameid"]);
 
 		if (strlen($post["username"]) < 1)
 			array_push($errors, "Username too short");
@@ -70,6 +58,8 @@ if ($posted)
 
 		if (count($errors) <= 0)
 		{
+			$db = getDatabaseConnection();
+
 			$query = "
 			INSERT INTO user (
 				usernameid, 

@@ -97,8 +97,7 @@ function db_getAllProducts($productIds)
 {
 	require_once("include/db.php");
 
-	$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$db = getDatabaseConnection();
 
 	$query = 'SELECT * FROM product WHERE productid = :id0 ';
 	$count = count($productIds);

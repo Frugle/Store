@@ -18,7 +18,7 @@ if(isset($_POST['submit']) === false)
 	// Print Form
 	echo '<form method="post">';
 	echo 'New category: <input type="text" name="categoryid"/><br>';
-	echo 'Parent category: <select name="parentcategory">' . getCategories() . '</select><br>';
+	echo 'Parent category: <select name="parentcategory">' . getCategoriesHtml() . '</select><br>';
 	echo '<input type=submit name="submit"/>';
 	echo '</form>';
 }
@@ -62,7 +62,7 @@ function getReturnLink()
 	return '<br><a href="' . getReturnAddress() . '">Return</a><br>';
 }
 
-function getCategories()
+function getCategoriesHtml()
 {
 	try
 	{
@@ -87,26 +87,6 @@ function validate($categoryid, $parentcategory)
 	$pattern = '/^[\w\d]{2}[\w\d\s]{0,30}$/';
 	return preg_match($pattern, $categoryid) &&
 		preg_match($pattern, $parentcategory);
-}
-
-/* MOVE TO EXTERNAL FILE? */
-function db_getAllCategories()
-{
-	require_once("include/db.php");
-
-	$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	$st = $db->query('SELECT categoryid FROM category');
-	$st->setFetchMode(PDO::FETCH_ASSOC);
-
-	$categories = array();
-	while($row = $st->fetch())
-	{
-		$categories[] = $row['categoryid'];
-	}
-
-	return $categories;
 }
 
 /* MOVE TO EXTERNAL FILE? */

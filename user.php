@@ -3,117 +3,10 @@
 ?>
 
 <?php
-	function getUserInfo()
-	{
-		try
-		{
-			$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query = "
-				SELECT *
-				FROM user
-				WHERE usernameid = :username
-				";
+	if (!isLoggedIn())
+		exit("Not logged in");
 
-			$prepare = $db->prepare($query);
-			$prepare->bindParam(":username", $_SESSION['username']);
-			$prepare->execute();
-
-			$prepare->setFetchMode(PDO::FETCH_ASSOC);
-			return $prepare->fetch();
-		}
-		catch (Exception $e) 
-		{
-			exit($e->getMessage());
-		}
-	}
-
-	function getUserOrders()
-	{
-		try
-		{
-			$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query = "
-				SELECT *
-				FROM `order`
-				WHERE usernameid = :username
-				";
-			$prepare = $db->prepare($query);
-			$prepare->bindParam(":username", $_SESSION['username']);
-			$prepare->execute();
-
-			$prepare->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = array();
-			while ($row = $prepare->fetch())
-			{
-				$rows[] = $row;
-			}
-			return $rows;
-		}
-		catch (Exception $e) 
-		{
-			exit($e->getMessage());
-		}
-	}
-
-	function getOrderProducts($orderid)
-	{
-		try
-		{
-			$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query = "
-				SELECT *
-				FROM `orderproduct`
-				WHERE orderid = :orderid
-				";
-			$prepare = $db->prepare($query);
-			$prepare->bindParam(":orderid", $orderid);
-			$prepare->execute();
-
-			$prepare->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = array();
-			while ($row = $prepare->fetch())
-			{
-				$rows[] = $row;
-			}
-			return $rows;
-		}
-		catch (Exception $e) 
-		{
-			exit($e->getMessage());
-		}
-	}
-
-	function getProduct($productid)
-	{
-		try
-		{
-			$db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query = "
-				SELECT *
-				FROM `product`
-				WHERE productid = :productid
-				";
-			$prepare = $db->prepare($query);
-			$prepare->bindParam(":productid", $productid);
-			$prepare->execute();
-
-			$prepare->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $prepare->fetch();
-			return $row;
-		}
-		catch (Exception $e) 
-		{
-			exit($e->getMessage());
-		}
-	}
-?>
-
-<?php
-	$row = getUserInfo();
+	$row = getUser($_SESSION["username"]);
 	echo "<h1>Shipping information</h1>";
 	echo "<table>";
 	echo "<tr>";
@@ -142,7 +35,7 @@
 
 <h1>Orders</h1>
 <?php
-	$rows = getUserOrders();
+	$rows = getUserOrders($_SESSION["username"]);
 
 	echo "<table>";
 	echo "<th>Order id<th>Products<th>Total<th>Date";
