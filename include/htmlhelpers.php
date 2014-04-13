@@ -1,7 +1,4 @@
 <?php
-	// Functions in this file should not get information from database.
-	// All necessary information to build html should be given in parameters.
-
 	function getOrderRowHtml($orderRow, $orderProducts, $includeUsername = false)
 	{
 		$html = "";
