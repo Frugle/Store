@@ -72,6 +72,32 @@
 		}
 	}
 
+	function getOrders()
+	{
+		try
+		{
+			$db = getDatabaseConnection();
+			$query = "
+				SELECT *
+				FROM `order`
+				";
+			$prepare = $db->prepare($query);
+			$prepare->execute();
+
+			$prepare->setFetchMode(PDO::FETCH_ASSOC);
+			$rows = array();
+			while ($row = $prepare->fetch())
+			{
+				$rows[] = $row;
+			}
+			return $rows;
+		}
+		catch (Exception $e) 
+		{
+			exit($e->getMessage());
+		}
+	}
+
 	function getUserOrders($usernameid)
 	{
 		try

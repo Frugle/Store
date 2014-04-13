@@ -6,7 +6,17 @@
 	if (!isLoggedIn())
 		exit("Not logged in");
 
-	$row = getUser($_SESSION["username"]);
+	$username = $_SESSION["username"];
+	if (isset($_GET["user"]))
+	{
+		require_once "permissioncheck.php";
+		if (!hasPermission(PERM_MODERATOR))
+			exit("No permissions to view this page. GET OUT!");
+
+		$username = $_GET["user"];
+	}
+
+	$row = getUser($username);
 	echo "<h1>Shipping information</h1>";
 	echo "<table>";
 	echo "<tr>";
@@ -41,34 +51,11 @@
 	echo "<th>Order id<th>Products<th>Total<th>Date";
 	foreach ($rows as $row) 
 	{
-		echo "<tr>";
-		echo "<td style=\"border: 1px solid black\">{$row["orderid"]}</td>";
+		require_once "include/htmlhelpers.php";
 
-		echo "<td style=\"border: 1px solid black\">";
-		echo "<table>";
-		echo "<th>Name<th>Amount<th>Price";
+		$html = getOrderRowHtml($row, getOrderProducts($row["orderid"]));
 
-		$orderProducts = getOrderProducts($row["orderid"]);
-		$totalPrice = 0;
-		foreach ($orderProducts as $orderProduct) 
-		{
-			$product = getProduct($orderProduct["productid"]);
-			$productPrice = $orderProduct["price"] * $orderProduct["count"];
-			$totalPrice += $productPrice;
-
-			echo "<tr>";
-			echo "<td style=\"width: 450px\">{$product["brandid"]} - {$product["model"]}</td>";
-			echo "<td>{$orderProduct["count"]}</td>";
-			echo "<td>{$productPrice}</td>";
-			echo "</tr>";
-		}
-
-		echo "</table>";
-		echo "</td>";
-
-		echo "<td style=\"border: 1px solid black\">{$totalPrice}</td>";
-		echo "<td style=\"border: 1px solid black\">{$row["date"]}</td>";
-		echo "</tr>";
+		echo $html;
 	}
 	echo "</table>";
 ?>
