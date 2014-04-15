@@ -37,6 +37,7 @@
 		return $html;
 	}
 
+	// Fixes the image path received from database for use in img tag
 	function fixImageUrl($dbImage)
 	{
 		$urlRegex = "/^http:\/\//";

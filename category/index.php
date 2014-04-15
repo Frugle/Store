@@ -31,10 +31,24 @@
 		{
 			echo "<tr>";
 
+			// Image
 			$fixedUrl = fixImageUrl($row["image"]);
 			$shouldEchoImage = !empty($fixedUrl);
 			echo "<td style=\"height: 80px; width: 80px\">" . ($shouldEchoImage ? "<img src=\"{$fixedUrl}\" style=\"max-width: 80px; max-height: 80px\">" : "") . "</td>";
+			
+			// Name and view details
+			echo "<td>";
+			echo "<table>";
+			echo "<tr>";
 			echo "<td style=\"width: 300px\">{$row["brandid"]} - {$row["model"]}</td>";
+			echo "</tr>";
+			echo "<tr>";
+			echo "<td colspan=\"2\"><a href=\"/store/product/{$row["productid"]}\">View details</a><td>";
+			echo "</tr>";
+			echo "</table>";
+			echo "</td>";
+
+			// Price
 			$finalPrice = $row["baseprice"] * (1 - $row["discount"]);
 			echo "<td>{$finalPrice}</td>";
 
