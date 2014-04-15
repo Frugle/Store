@@ -73,6 +73,7 @@ function echoCategoryTree(&$categoryTree, $path, $maxDepth = null)
 	echo '</ul>';
 }
 
+// Unused
 function getChildCategories(&$all, &$result, &$parents)
 {
 	foreach ($all as $key => $val) 
@@ -98,7 +99,9 @@ function echoCategoryTreeRequestSensitive(&$categoryTree, $path, $currentGet = "
 		$newPath = echoCategory($currentParent, $path);
 
 		if ($getCat !== null && $getCat == $currentParent)
+		{
 			echoCategoryTreeRequestSensitive($categoryTree[$currentParent], $newPath, "category" . ($catGetNum + 1));
+		}
 	}
 	echo '</ul>';
 }

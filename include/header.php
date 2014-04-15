@@ -2,6 +2,8 @@
 if (session_status() == PHP_SESSION_NONE)
 	session_start();
 
+$urlPrepend = "/store/";
+
 function isLoggedIn()
 {
 	return isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == 1;

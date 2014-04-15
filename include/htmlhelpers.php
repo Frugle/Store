@@ -36,4 +36,17 @@
 
 		return $html;
 	}
+
+	function fixImageUrl($dbImage)
+	{
+		$urlRegex = "/^http:\/\//";
+		$isUrl = preg_match($urlRegex, $dbImage) === 1;
+		if ($isUrl)
+			return $dbImage;
+
+		if (!isset($dbImage) || empty($dbImage))
+			return "";
+
+		return "/store/" . $dbImage;
+	}
 ?>
