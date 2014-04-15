@@ -1,8 +1,4 @@
 <?php
-	include_once "header.php"
-?>
-
-<?php
 
 /* 
 	Webstore Project
@@ -13,26 +9,99 @@
 	Completed in: 4hrs
 */
 
-$all = db_getAllCategories();
-$arr = array();
-createCategoryTree($all, $arr, null, '');
+$rawCategories = db_getAllCategories();
+$completeTree = array();
+createCategoryTree($rawCategories, $completeTree, null);
+//echoCategoryTree($completeTree, '');
+echoCategoryTreeRequestSensitive($completeTree, '');
 
-function createCategoryTree(&$all, &$arr, $parent, $path)
+function createCategoryTree(&$rawCategories, &$result, $parent)
 {
-	echo '<ul>';
-	foreach ($all as $key => $val)
+	foreach ($rawCategories as $key => $val)
 	{
 		if($val == $parent)
 		{
-			$newpath = $path . $key . '/';
-			printf('<li>%s<br>', sprintf('<a href="category/%s">%s</a>',
-				$newpath, str_replace('/', '', substr($newpath, strrpos($newpath, '/', -2)))));
-			$arr[$key] = createCategoryTree($all, $arr[$key], $key, $newpath);
+			$result[$key] = createCategoryTree($rawCategories, $result[$key], $key);
 		}
 	}
+	
+	return $result;
+}
 
+// Doesn't work, don't use
+function getChildTreeParentName(&$completeTree, &$childTree)
+{
+	if ($completeTree === null)
+		return null;
+
+	foreach ($completeTree as $key => $children)
+	{
+		if ($children == $childTree)
+		{
+			return $key;
+		}
+
+		return getChildTreeParentName($children, $childTree);
+	}
+
+	return null;
+}
+
+function echoCategory($name, $path)
+{
+	$newpath = $path . $name . '/';
+	printf('<li>%s<br>', sprintf('<a href="category/%s">%s</a>',
+		$newpath, $name));
+
+	return $newpath;
+}
+
+function echoCategoryTree(&$categoryTree, $path, $maxDepth = null)
+{
+	if ($categoryTree === null)
+		return;
+
+	$nextDepth = $maxDepth - 1;
+
+	echo '<ul>';
+	foreach ($categoryTree as $key => $val)
+	{
+		$newpath = echoCategory($path, $key);
+
+		if ($maxDepth === null || $nextDepth > 0)
+			echoCategoryTree($categoryTree[$key], $newpath);
+	}
 	echo '</ul>';
-	return $arr;
+}
+
+function getChildCategories(&$all, &$result, &$parents)
+{
+	foreach ($all as $key => $val) 
+	{
+		if ($value === $parents[0])
+		{
+			return $result = getChildCategories($all[array_shift($parents)], $result, $parents);
+		}
+	}	
+}
+
+function echoCategoryTreeRequestSensitive(&$categoryTree, $path, $currentGet = "category1")
+{
+	if ($categoryTree === null)
+		return;
+
+	$getCat = isset($_GET[$currentGet]) ? $_GET[$currentGet] : null;
+	$catGetNum = substr($currentGet, -1, 1);
+
+	echo '<ul>';
+	foreach ($categoryTree as $currentParent => $children) 
+	{
+		$newPath = echoCategory($currentParent, $path);
+
+		if ($getCat !== null && $getCat == $currentParent)
+			echoCategoryTreeRequestSensitive($categoryTree[$currentParent], $newPath, "category" . ($catGetNum + 1));
+	}
+	echo '</ul>';
 }
 
 ?>
@@ -62,8 +131,4 @@ function db_getAllCategories()
 	return $categories;
 }
 
-?>
-
-<?php
-	include "footer.php"
 ?>
