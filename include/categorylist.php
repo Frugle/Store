@@ -50,8 +50,7 @@ function getChildTreeParentName(&$completeTree, &$childTree)
 function echoCategory($name, $path)
 {
 	$newpath = $path . $name . '/';
-	printf('<li>%s<br>', sprintf('<a href="category/%s">%s</a>',
-		$newpath, $name));
+	printf('<li>%s<br>', sprintf('<a href="/store/category/%s">%s</a>', $newpath, $name));
 
 	return $newpath;
 }
