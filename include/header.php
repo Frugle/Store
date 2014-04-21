@@ -20,7 +20,7 @@ function isLoggedIn()
 <div id="mainContainer">
 	<div id="nav">
 		<h1>Store</h1>
-		<a href="login.php">Login</a>
+		<a href="<? echo $urlPrepend . 'login.php'; ?>">Login</a>
 	</div>
 	<div class="sideBar"  id="sideBarLeft">
 		<div id="categories">
