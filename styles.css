@@ -24,7 +24,6 @@ div
 #mainContainer
 {
 	margin: 0px auto;
-	margin-top: 30px;
 	width: 1000px;
 }
 
@@ -111,10 +110,12 @@ div
 
 header
 {
-	background: #ff0;
+	position: absolute;
+	top: 0;
 	padding: 10px;
-	height: 60px;
-	border: solid 1px lightgray;
+	height: 30px;
+	background: #eee;
+	border: solid 1px #ddd;
 }
 
 footer
@@ -122,6 +123,7 @@ footer
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 60px;
-	border: solid 1px lightgray;
+	height: 30px;
+	background: #eee;
+	border: solid 1px #ddd;
 }
