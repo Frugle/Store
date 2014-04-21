@@ -2,7 +2,7 @@
 	include "include/header.php"
 ?>
 
-<canvas id="carousel" width="600" height="200" style="border: solid 1px #aaa; margin: 5px"></canvas>
+<canvas id="carousel" width="600" height="200" style="border: solid 1px #aaa;"></canvas>
 <script type="text/javascript" src="js/carousel.js"></script>
 <script type="text/javascript">
 
