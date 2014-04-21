@@ -1,9 +1,10 @@
 * /* sane defaults */
 {
 	font-family: arial, verdana, tahoma;
+	font-size: 16px;
 }
 
-html, body /* sane defaults */
+html, body, table, tr, td /* sane defaults */
 {
 	margin: 0px;
 	padding: 0px;
@@ -15,31 +16,68 @@ h1, h2, h3, h4, h5 /* sane defaults */
 	margin-bottom: 0px;
 }
 
+div
+{
+	/*border: 1px solid black;*/ /* DEBUG */
+}
+
 #mainContainer
 {
 	margin: 0px auto;
 	margin-top: 30px;
 	width: 1000px;
-	/*border: 1px solid black;*/ /* DEBUG */
-	min-height: 200px;
+}
+
+/*
+ * float hack 
+ * http://shanerutter.co.uk/2011/03/08/css-floating-elements-resizing-container-clearfix/
+*/
+#mainContainer:after 
+{
+	content: ".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
 }
 
 #nav
 {
-	width: 960px;
+	width: 990px;
 	height: 40px;
-	/*border: 1px solid black;*/ /* DEBUG */
-	padding: 5px;
-	padding-left: 20px;
+	padding-left: 10px;
 }
 
-#categories
+.sideBar
 {
 	width: 180px;
-	float: left;
-	/*border: 1px solid black;*/ /* DEBUG */
-	min-height: 180px;
 	padding: 10px;
+}
+
+#sideBarLeft
+{
+	float: left;
+}
+
+#sideBarRight
+{
+	float: right;
+}
+
+.topTen
+{
+	height: 100%;
+	
+}
+
+.topTen table *
+{
+	font-size: 12px;
+}
+
+.topTen table td
+{
+	padding-bottom: 5px;
 }
 
 #categories ul
@@ -49,16 +87,24 @@ h1, h2, h3, h4, h5 /* sane defaults */
 	padding-left: 10px;
 }
 
+#categories ul:first-child
+{
+	padding-left: 0px;
+}
+
 #categories li
 {
 	margin: 0px;
 }
 
+#categories:first
+{
+	padding-left: 0px;
+}
+
 #content
 {
 	width: 580px;
-	min-height: 180px;
 	margin-left: 200px;
-	/*border: 1px solid black;*/ /* DEBUG */
 	padding: 10px;
 }

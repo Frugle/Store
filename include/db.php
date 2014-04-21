@@ -225,4 +225,65 @@
 			exit($e->getMessage());
 		}
 	}
+
+	function getLatestProducts($count)
+	{
+		try
+		{
+			$db = getDatabaseConnection();
+			$query = "
+				SELECT *
+				FROM product
+				ORDER BY productid DESC
+				LIMIT :count;
+				";
+			$prepare = $db->prepare($query);
+			$prepare->bindParam(":count", $count, PDO::PARAM_INT);
+			$prepare->execute();
+
+			$prepare->setFetchMode(PDO::FETCH_ASSOC);
+			$rows = array();
+			while ($row = $prepare->fetch())
+			{
+				$rows[] = $row;
+			}
+			return $rows;
+		}
+		catch (Exception $e) 
+		{
+			exit($e->getMessage());
+		}
+	}
+
+	function getTopSellers($count)
+	{
+		try
+		{
+			$db = getDatabaseConnection();
+			$query = "
+				SELECT product.*, SUM(orderproduct.count) AS `sold`
+				FROM orderproduct
+				INNER JOIN product
+				ON product.productid = orderproduct.productid
+				GROUP BY product.productid
+				ORDER BY `sold` DESC
+				LIMIT :count;
+				";
+			$prepare = $db->prepare($query);
+			$prepare->bindParam(":count", $count, PDO::PARAM_INT);
+			$prepare->execute();
+
+			$prepare->setFetchMode(PDO::FETCH_ASSOC);
+			$rows = array();
+			while ($row = $prepare->fetch())
+			{
+				$rows[] = $row;
+			}
+			return $rows;
+		}
+		catch (Exception $e) 
+		{
+			exit($e->getMessage());
+		}
+	}
 ?>
