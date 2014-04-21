@@ -43,7 +43,7 @@ h5
 
 div, header, footer
 {
-	border: 1px solid black; /* DEBUG */
+	/*border: 1px solid black;*/ /* DEBUG */
 }
 
 #mainContainer
