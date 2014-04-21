@@ -1,6 +1,6 @@
 	</div>
 	<footer>
-		<span style="text-align: center;">(C)opyright 'nönönnöö' 2014 jne.</span>
+		<p style="text-align: center;">Dogerights for Peruna&Kissa Inc. 2014</p>
 	</footer>
 </div>
 </body>
