@@ -1,3 +1,8 @@
+* /* sane defaults */
+{
+	font-family: arial, verdana, tahoma;
+}
+
 html, body /* sane defaults */
 {
 	margin: 0px;
