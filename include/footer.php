@@ -1,4 +1,7 @@
-		</div>
 	</div>
-	</body>
+	<footer>
+		Footer!
+	</footer>
+</div>
+</body>
 </html>
