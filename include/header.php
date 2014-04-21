@@ -18,6 +18,9 @@ function isLoggedIn()
 </head>
 <body>
 <div id="mainContainer">
+	<header>
+		
+	</header>
 	<div id="nav">
 		<h1>Store</h1>
 		<a href="<? echo $urlPrepend . 'login.php'; ?>">Login</a>
