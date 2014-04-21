@@ -20,11 +20,9 @@ function isLoggedIn()
 <div id="mainContainer">
 	<div id="nav">
 		<h1>Store</h1>
+		<a href="login.php">Login</a>
 	</div>
 	<div class="sideBar"  id="sideBarLeft">
-		<div id="login">
-			<?php require_once "login.php"; ?>
-		</div>
 		<div id="categories">
 			<?php require_once "categorylist.php"; ?>
 		</div>
