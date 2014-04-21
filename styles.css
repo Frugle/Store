@@ -4,7 +4,7 @@
 	font-size: 16px;
 }
 
-html, body, table, tr, td /* sane defaults */
+html, body, table, tr, td, p /* sane defaults */
 {
 	margin: 0px;
 	padding: 0px;
@@ -16,13 +16,39 @@ h1, h2, h3, h4, h5 /* sane defaults */
 	margin-bottom: 0px;
 }
 
-div
+h1
+{
+	font-size: 32px;
+}
+
+h2
+{
+	font-size: 28px;
+}
+
+h3
+{
+	font-size: 24px;
+}
+
+h4
+{
+	font-size: 20px;
+}
+
+h5
+{
+	font-size: 16px;
+}
+
+div, header, footer
 {
 	/*border: 1px solid black;*/ /* DEBUG */
 }
 
 #mainContainer
 {
+	position: relative;
 	margin: 0px auto;
 	margin-top: 30px;
 	width: 1000px;
@@ -41,11 +67,37 @@ div
 	visibility:hidden;
 }
 
-#nav
+header
 {
 	width: 990px;
 	height: 40px;
 	padding-left: 10px;
+}
+
+header div
+{
+	position: relative;
+	height: 39px;
+	width: 130px;
+	float: left;
+	margin: auto 0;
+	vertical-align: middle;
+}
+
+header div:first-child
+{
+	width: 100px;
+}
+
+header div div span a
+{
+	line-height : 40px;
+}
+
+header div div
+{
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .sideBar
@@ -107,4 +159,28 @@ div
 	width: 580px;
 	margin-left: 200px;
 	padding: 10px;
+}
+
+footer
+{
+	height: 120px;
+	width: 990px;
+	position: absolute;
+	bottom: -120px;
+}
+
+footer table
+{
+	width: 100%;
+}
+
+footer td
+{
+	width: 33%;
+	vertical-align: top;
+}
+
+footer p, footer a
+{
+	font-size: 12px;
 }

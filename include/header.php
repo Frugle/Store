@@ -18,10 +18,25 @@ function isLoggedIn()
 </head>
 <body>
 <div id="mainContainer">
-	<div id="nav">
-		<h1>Store</h1>
-		<a href="<? echo $urlPrepend . 'login.php'; ?>">Login</a>
-	</div>
+	<header>
+		<div>
+			<a href="<?php echo $urlPrepend; ?>"><h1>Store</h1></a>
+		</div>
+		<div><div>
+			<?php
+				if (!isLoggedIn()) {
+			?>
+				<span><a href="<? echo $urlPrepend . 'login.php'; ?>">Login</a></span>
+			<?php
+				} else {
+			?>
+				Logged in as <?php echo $_SESSION["username"]; ?>
+				<a href="<? echo $urlPrepend . 'login.php?logout'; ?>">Logout</a>
+			<?php
+				}
+			?>
+		</div></div>
+	</header>
 	<div class="sideBar"  id="sideBarLeft">
 		<div id="categories">
 			<?php require_once "categorylist.php"; ?>
