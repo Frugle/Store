@@ -17,19 +17,16 @@ function isLoggedIn()
 	<link rel="stylesheet" type="text/css" href="/store/styles.css">
 </head>
 <body>
-
 <div id="mainContainer">
-	<header>
-		Header!
-	</header>
 	<div id="nav">
 		<h1>Store</h1>
 	</div>
 	<div class="sideBar"  id="sideBarLeft">
+		<div id="login">
+			<?php require_once "login.php"; ?>
+		</div>
 		<div id="categories">
-		<?php
-		require_once('categorylist.php');
-		?>
+			<?php require_once "categorylist.php"; ?>
 		</div>
 	</div>
 	<div class="sideBar" id="sideBarRight">

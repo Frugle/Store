@@ -88,13 +88,21 @@ else
 
 <form method="post" action="login.php">
 	<label for="username">Username</label>
-	<input type="text" name="username" value="<?php echo isset($post["username"]) ? $post["username"] : ""; ?>">
+	<input id="loginuid" type="text" name="username">
 	<br>
 	<label for="password">Password</label>
-	<input type="password" name="password">
+	<input id="loginpwd" type="password" name="password">
 	<br>
 	<input type="submit" name="login" value="Login">
 </form>
+
+<script type="text/javascript" src="js/login_focus.js"></script>
+<script type="text/javascript">
+
+	FocusDefault("loginuid", "Username");
+	FocusDefault("loginpwd", "Password");
+
+</script>
 
 <?php
 }
