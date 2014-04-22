@@ -31,8 +31,13 @@
 		echo "Warranty: " . $product["warranty"] . "<br>";
 		echo "Base price: " . $product["baseprice"] . "<br>";
 		echo "Discount: " . $product["discount"] . "<br>";
+
+		require_once "../include/htmlhelpers.php";
+
+		$imgUrl = fixImageUrl($product["image"]);
+
 		echo "Image<br>";
-		echo "<img src='/store/{$product["image"]}'>";
+		echo "<img src='{$imgUrl}'>";
 	}
 ?>
 <?php
