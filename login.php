@@ -88,10 +88,10 @@ else
 
 <form method="post" action="login.php">
 	<label for="username">Username</label>
-	<input id="loginuid" type="text" name="username">
+	<input id="loginuid" type="text" name="username" required>
 	<br>
 	<label for="password">Password</label>
-	<input id="loginpwd" type="password" name="password">
+	<input id="loginpwd" type="password" name="password" required>
 	<br>
 	<input type="submit" name="login" value="Login">
 </form>
