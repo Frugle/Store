@@ -3,31 +3,31 @@
 		<table>
 			<tr>
 				<td>
-					<h5>Aukiolo</h5>
+					<h5>Shopping hours</h5>
 					<p>
-					ma-pe 09-18
+					mon-fri 09-18
 					<br>
-					la 12-18
+					sat 12-18
 					<br>
-					su 12-17
+					sun 12-17
 					</p>
 				</td>
 				<td>
-					<h5>Tuki</h5>
+					<h5>Support</h5>
 					<p>
-					Sähköposti:
+					E-mail:
 					<a href="mailto:noreplysupport@store.com">noreply@store.com</a>
 					<br>
-					Puh.
+					Phone.
 					040 123 4567
 					<br>
-					Arkisin klo. 09-15
+					Weekdays 09-15
 					</p>
 				</td>
 				<td>
-					<h5>Yhteystiedot</h5>
+					<h5>Contact</h5>
 					<p>
-					Osoite:
+					Address:
 					<br>
 					Store Oy
 					<br>
@@ -35,10 +35,10 @@
 					<br>
 					40000 Jyväskylä
 					<br>
-					Sähköposti:
+					E-mail:
 					<a href="mailto:noreply@store.com">noreply@store.com</a>
 					<br>
-					Puh.
+					Phone.
 					040 123 4567
 					</p>
 				</td>
