@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<style type="text/css">
+		canvas
+		{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+
+			background-color: white;
+			border: solid 2px gray;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="drawcanvas" width="800" height="600"></canvas>
+	<script type="text/javascript" src="game.js"></script>
+	<script type="text/javascript" src="component.js"></script>
+	<script type="text/javascript" src="player.js"></script>
+	<script type="text/javascript">
+
+		// Create Game
+		var canvas = document.getElementById("drawcanvas");
+		var game = CreateGame(canvas, true);
+
+		// Initialize
+		game.Init();
+
+		// Controls
+		game.Controls.Up 	= { Key : "W", State : false };
+		game.Controls.Down 	= { Key : "S", State : false };
+		game.Controls.Left 	= { Key : "A", State : false };
+		game.Controls.Right = { Key : "D", State : false };
+
+		// Initial Entities
+		game.Add(CreatePlayer(game));
+
+		// Start the Game
+		game.Start();
+
+	</script>
+</body>
+</html>

@@ -42,6 +42,9 @@ function isLoggedIn()
 		<div>
 			<a href="<? echo $urlPrepend . 'confirmorder.php'; ?>">Checkout</a>
 		</div>
+		<div>
+			<a href="<? echo $urlPrepend . 'js/gametest/index.html'; ?>">Bored?</a>
+		</div>
 	</header>
 	<div class="sideBar"  id="sideBarLeft">
 		<div id="categories">
