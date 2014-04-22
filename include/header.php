@@ -44,7 +44,7 @@ function isLoggedIn()
 		</div>
 
 		<?php 
-			require_once($urlPrepend . "permissioncheck.php");
+			require_once($_SERVER["DOCUMENT_ROOT"] . $urlPrepend . "permissioncheck.php");
 			if (hasPermission(1))
 			{
 		?>
