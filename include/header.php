@@ -42,6 +42,22 @@ function isLoggedIn()
 		<div>
 			<a href="<? echo $urlPrepend . 'confirmorder.php'; ?>">Checkout</a>
 		</div>
+
+		<?php 
+			require_once("permissioncheck.php");
+			if (hasPermission(1))
+			{
+		?>
+		<div>
+			<a href="<? echo $urlPrepend . 'addbrand.php'; ?>">Add brand</a>
+		</div>
+		<div>
+			<a href="<? echo $urlPrepend . 'addproduct.php'; ?>">Add product</a>
+		</div>
+		<div>
+			<a href="<? echo $urlPrepend . 'addcategory.php'; ?>">Add category</a>
+		</div>
+		<?php } ?>
 	</header>
 	<div class="sideBar"  id="sideBarLeft">
 		<div id="categories">

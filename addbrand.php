@@ -23,7 +23,7 @@ if(isset($_POST['submit']) === false)
 }
 else
 {
-	if(validate($_POST["brandid"]) === true)
+	if(validateBrand($_POST["brandid"]) === true)
 	{
 		// SQL Query
 		try
@@ -62,7 +62,7 @@ function getReturnLink()
 <?php
 
 /* MOVE TO EXTERNAL FILE? */
-function validate($brandid)
+function validateBrand($brandid)
 {
 	$pattern = '/^[\w\d]{2}[\w\d\s]{0,30}$/';
 	return preg_match($pattern, $brandid) === 1;

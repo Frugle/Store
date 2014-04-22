@@ -29,7 +29,7 @@ if(isset($_POST['submit']) === false)
 }
 else
 {
-	if(validate($_POST["brandid"], $_POST["model"], $_POST["description"], $_POST["warranty"],
+	if(validateProduct($_POST["brandid"], $_POST["model"], $_POST["description"], $_POST["warranty"],
 		$_POST["baseprice"], $_POST["discount"], $_FILES["image"]) === true)
 	{
 		// SQL Query
@@ -83,7 +83,7 @@ function getBrandsHtml()
 <?php
 
 /* MOVE TO EXTERNAL FILE? */
-function validate($brandid, $model, $description, $warranty, $baseprice, $discount, $image)
+function validateProduct($brandid, $model, $description, $warranty, $baseprice, $discount, $image)
 {
 	return preg_match('/^[\w\d]{2}[\w\d\s]{0,30}$/', $brandid) &&
 		preg_match('/^[\w\d\s]{0,64}$/', $model) &&	

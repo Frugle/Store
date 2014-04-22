@@ -24,7 +24,7 @@ if(isset($_POST['submit']) === false)
 }
 else
 {
-	if(validate($_POST["categoryid"], $_POST["parentcategory"]) === true)
+	if(validateCategory($_POST["categoryid"], $_POST["parentcategory"]) === true)
 	{
 		// Replace 'None' with database friendly null value
 		if($_POST["parentcategory"] === 'None')
@@ -82,7 +82,7 @@ function getCategoriesHtml()
 <?php
 
 /* MOVE TO EXTERNAL FILE? */
-function validate($categoryid, $parentcategory)
+function validateCategory($categoryid, $parentcategory)
 {
 	$pattern = '/^[\w\d]{2}[\w\d\s]{0,30}$/';
 	return preg_match($pattern, $categoryid) &&
