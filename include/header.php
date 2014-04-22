@@ -44,7 +44,7 @@ function isLoggedIn()
 	</div>
 	<div class="sideBar" id="sideBarRight">
 		<div class="topTen" id="topTen1">
-			<h3>Uutuudet</h3>
+			<h5>Uutuudet</h5>
 			<table>
 			<?php
 				require_once "db.php";
@@ -60,7 +60,7 @@ function isLoggedIn()
 			</table>
 		</div>
 		<div class="topTen" id="topTen2">
-			<h3>Myydyimmät</h3>
+			<h5>Myydyimmät</h5>
 			<table>
 			<?php
 				require_once "db.php";
