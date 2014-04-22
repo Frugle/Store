@@ -21,23 +21,63 @@
 			addItem(intval($product["productid"]));
 		}
 
-		if (isLoggedIn())
-			echo "<a href=/store/product/{$product["productid"]}/add>Add to cart</a><br>";
-
-		echo "Productid: " . $product["productid"] . "<br>";
-		echo "Brand: " . $product["brandid"] . "<br>";
-		echo "Model: " . $product["model"] . "<br>";
-		echo "Description: " . $product["description"] . "<br>";
-		echo "Warranty: " . $product["warranty"] . "<br>";
-		echo "Base price: " . $product["baseprice"] . "<br>";
-		echo "Discount: " . $product["discount"] . "<br>";
-
 		require_once "../include/htmlhelpers.php";
 
+		echo "<table id=\"productInfoContainer\">";
+		echo "<tr>";
+		echo "<td id=\"productImageContainer\">";
 		$imgUrl = fixImageUrl($product["image"]);
-
-		echo "Image<br>";
 		echo "<img src='{$imgUrl}'>";
+		echo "</td>";
+		echo "<td>";
+
+		echo "<table id=\"productInfoGeneral\">";
+		echo "<tr>";
+		echo "<td class=\"label\">Product ID</td>";
+		echo "<td>{$product["productid"]}</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td class=\"label\">Brand</td>";
+		echo "<td>{$product["brandid"]}</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td class=\"label\">Model</td>";
+		echo "<td>{$product["model"]}</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td class=\"label\">Warranty</td>";
+		echo "<td>{$product["warranty"]} months</td>";
+		echo "</tr>";
+		if (isLoggedIn())
+		{
+			echo "<tr>";
+			echo "<td colspan=\"2\"><a href=/store/product/{$product["productid"]}/add>ADD TO CART</a></td>";
+			echo "</tr>";
+		}
+		echo "<tr>";
+		echo "<td colspan=\"2\">";
+
+		$finalPrice = $product["baseprice"] * (1 - $product["discount"]);
+		$discount = $product["discount"] * 100;
+
+		echo "<span class=\"finalprice\">\${$finalPrice}</span>";
+
+		if ($discount != 0)
+			echo " -{$discount}%";
+
+		if ($discount != 0)
+			echo "<br><span class=\"baseprice\">\${$product["baseprice"]}</span>";
+
+		echo "</td>";
+		echo "</tr>";
+		echo "</table>";
+
+		echo "</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td colspan=\"2\" id=\"desc\"><p>{$product["description"]}</p></td>";
+		echo "</tr>";
+		echo "</table>";
 	}
 ?>
 <?php

@@ -181,6 +181,11 @@ header div div
 	border: 1px solid #2c3e50;
 }
 
+#content table
+{
+	width: 100%;
+}
+
 footer
 {
 	height: 120px;
@@ -207,4 +212,78 @@ footer td
 footer p, footer a
 {
 	font-size: 12px;
+}
+
+
+#productImageContainer
+{
+	width: 250px;
+	height: 250px;
+}
+
+.label
+{
+	font-weight: bold;
+}
+
+#productInfoGeneral
+{
+	vertical-align: top;
+}
+
+#productInfoContainer td
+{
+	vertical-align: top;
+}
+
+#productInfoContainer a
+{
+	font-size: 24px;
+}
+
+#productInfoContainer #desc
+{
+	padding-top: 20px;
+}
+
+#productInfoGeneral
+{
+	height: 250px;
+}
+
+#productInfoGeneral .label
+{
+	width: 100px;
+}
+
+#productInfoGeneral tr:last-child td
+{
+	vertical-align: bottom;
+	text-align: bottom;
+	font-size: 32px;
+}
+
+#productInfoGeneral .finalprice
+{
+	font-size: 42px;
+	font-weight: bold;
+}
+
+#productInfoGeneral .baseprice
+{
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: line-through;
+}
+
+#productInfoGeneral td
+{
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+#productImageContainer img
+{
+	max-width: 250px;
+	max-height: 250px;
 }
