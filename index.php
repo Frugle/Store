@@ -7,15 +7,15 @@
 <script type="text/javascript">
 
 	var pictures = [
-		"carousel/a.png",
-		"carousel/b.png",
-		"carousel/c.png"
+		"carousel/NGTX770-Banner.png",
+		"carousel/SC4DE-Banner.png",
+		"carousel/WC3BC-Banner.png"
 	];
 
 	var urls = [
-		"http://www.google.com/search?q=a#q=a",
-		"http://www.google.com/search?q=b#q=b",
-		"http://www.google.com/search?q=c#q=c"
+		"/store/product/66",
+		"/store/product/10",
+		"/store/product/2"
 	];
 
 	var canvas = document.getElementById("carousel");
