@@ -45,6 +45,21 @@ function isLoggedIn()
 		<div>
 			<a href="<? echo $urlPrepend . 'js/gametest/index.html'; ?>">Bored?</a>
 		</div>
+		<?php 
+			require_once($_SERVER["DOCUMENT_ROOT"] . $urlPrepend . "permissioncheck.php");
+			if (hasPermission(1))
+			{
+		?>
+		<div>
+			<a href="<? echo $urlPrepend . 'addbrand.php'; ?>">Add brand</a>
+		</div>
+		<div>
+			<a href="<? echo $urlPrepend . 'addproduct.php'; ?>">Add product</a>
+		</div>
+		<div>
+			<a href="<? echo $urlPrepend . 'addcategory.php'; ?>">Add category</a>
+		</div>
+		<?php } ?>
 	</header>
 	<div class="sideBar"  id="sideBarLeft">
 		<div id="categories">
