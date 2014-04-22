@@ -36,6 +36,9 @@ function isLoggedIn()
 				}
 			?>
 		</div></div>
+		<div>
+			<a href="<? echo $urlPrepend . 'user.php'; ?>">Profile</a>
+		</div>
 	</header>
 	<div class="sideBar"  id="sideBarLeft">
 		<div id="categories">
