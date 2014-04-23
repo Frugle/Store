@@ -42,7 +42,7 @@ function getProductInfo($productIds)
 
 	foreach($productIds as $id)
 	{
-		$allValid = $allValid && validate($id);
+		$allValid = $allValid && validateCart($id);
 	}
 
 	if($allValid === true)
@@ -87,7 +87,7 @@ function printProductInfo($productInfo)
 <?php
 
 /* MOVE TO EXTERNAL FILE? */
-function validate($productId)
+function validateCart($productId)
 {
 	return preg_match('/^\d{1,11}$/', $productId);
 }
