@@ -1,4 +1,3 @@
-
 <?php
 
 /* 
@@ -32,7 +31,7 @@ function addItem($itemId)
 	}
 }
 
-if(isset($_POST['item']) === true && validate($_POST['item']))
+if(isset($_POST['item']) === true && validateCartAdd($_POST['item']))
 {
 	$index = intval($_POST['item']);
 
@@ -48,7 +47,7 @@ if(isset($_POST['item']) === true && validate($_POST['item']))
 <?php
 
 /* MOVE TO EXTERNAL FILE? */
-function validate($productId)
+function validateCartAdd($productId)
 {
 	return preg_match('/^\d{1,11}$/', $productId);
 }
